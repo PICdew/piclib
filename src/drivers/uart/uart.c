@@ -58,7 +58,12 @@ char *UARTDriver_GetLine(char *s, uint16_t len) {
   char *p = s;
   do {
     *s = UARTDriver_ReadChar();
-    UARTDriver_WriteChar(*s);
+    if (!((BACKSPACE == *s) && (s == p))) {
+      UARTDriver_WriteChar(*s);
+    }
+    else {
+      continue;
+    }
     if ((BACKSPACE == *s) && (s > p)) {
       UARTDriver_WriteChar(' ');
       UARTDriver_WriteChar(BACKSPACE);

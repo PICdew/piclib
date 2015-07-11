@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include "piclib.h"
+#include "arch.h"
 
 #define BACKSPACE 0x08
 
@@ -98,9 +99,9 @@ char UARTDriver_ReadChar(void) {
 #ifdef UARTDriver_UART1
 
 void UARTDriver_U1Init(uint32_t baud) {
-  U1MODE = 0x8008;
-  U1STA = 0x400;
-  U1BRG = (PICLIB_config.sysFrequency / 8 / baud);
+  U1MODE = UxMODE_CONFIG;
+  U1STA = UxMODE_CONFIG;
+  U1BRG = (PICLIB_config.sysFrequency / BAUD_DIVISOR / baud);
   UART_config.uartNum = 1;
   UART_config.read = UARTDriver_U1ReadChar;
   UART_config.write = UARTDriver_U1WriteChar;
@@ -120,9 +121,9 @@ char UARTDriver_U1ReadChar(void) {
 #ifdef UARTDriver_UART2
 
 void UARTDriver_U2Init(uint32_t baud) {
-  U2MODE = 0x8008;
-  U2STA = 0x400;
-  U2BRG = (PICLIB_config.sysFrequency / 8 / baud);
+  U2MODE = UxMODE_CONFIG;
+  U2STA = UxMODE_CONFIG;
+  U2BRG = (PICLIB_config.sysFrequency / BAUD_DIVISOR / baud);
   UART_config.uartNum = 2;
   UART_config.read = UARTDriver_U2ReadChar;
   UART_config.write = UARTDriver_U2WriteChar;
